@@ -23,6 +23,7 @@ public class PlatformContainerManager : MonoBehaviour {
 
 	//private PlatformContainerMovement platformContainerMovement;
 	private List<GameObject> platformContainers;
+	private List<GameObject> movingPlatformContainers;
 	private List<GameObject> normalPlatforms;
 	private List<GameObject> smallPlatforms;
 	private List<GameObject> semiSmallPlatforms;
@@ -55,7 +56,7 @@ public class PlatformContainerManager : MonoBehaviour {
 		}*/
 	}
 
-	void spawnPlatform() {
+	void spawnPlatform() {		
 		GameObject platformContainer = getPlatformContainer ();
 		float playerVelocity = player.GetComponent<Rigidbody> ().velocity.x;
 		// To keep fixed distance the from edge, block minimun speed is
@@ -136,7 +137,7 @@ public class PlatformContainerManager : MonoBehaviour {
 		prevPlatformLength = platformLength;
 	}
 
-	GameObject getPlatformContainer() {
+	GameObject getPlatformContainer() {		
 		GameObject platformContainer = null;
 		int nonActiveCount = 0;
 		for (int i = 0; i < platformContainers.Count; ++i) {
@@ -147,11 +148,9 @@ public class PlatformContainerManager : MonoBehaviour {
 				++nonActiveCount;
 			}
 		}
-		// Little bumber on platformContainers
-		if (nonActiveCount <= 1) {
-			GameObject pc = (GameObject)Instantiate (this.platformContainer);
-			platformContainers.Add (pc);
-			pc.SetActive (false);
+		if (platformContainer == null) {
+			platformContainer = (GameObject)Instantiate (this.platformContainer);
+			platformContainers.Add (platformContainer);
 		}
 		platformContainer.SetActive (false);
 		return platformContainer;
@@ -190,6 +189,7 @@ public class PlatformContainerManager : MonoBehaviour {
 	public void Setup() {
 		// todo better
 		platformContainers = new List<GameObject> ();
+		movingPlatformContainers = new List<GameObject> ();
 		normalPlatforms = new List<GameObject> ();
 		smallPlatforms = new List<GameObject> ();
 		semiSmallPlatforms = new List<GameObject> ();

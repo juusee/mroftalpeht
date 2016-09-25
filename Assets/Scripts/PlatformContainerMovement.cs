@@ -50,6 +50,20 @@ public class PlatformContainerMovement : MonoBehaviour {
 		transform.Rotate (-10 * turnSpeed * Time.deltaTime, 0, 0);
 	}
 
+	public void MoveRight() {
+		Vector3 targetPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z + 10);
+		float speed = -120 * turnSpeed * Time.deltaTime;
+		float step = speed * Time.deltaTime;
+		transform.position = Vector3.MoveTowards (transform.position, targetPosition, step);
+	}
+
+	public void MoveLeft() {
+		Vector3 targetPosition = new Vector3 (transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 10);
+		float speed = -120 * turnSpeed * Time.deltaTime;
+		float step = speed * Time.deltaTime;
+		transform.localPosition = Vector3.MoveTowards (transform.localPosition, targetPosition, step);
+	}
+
 	public void setInverse(bool inverse) {
 		this.inverse = inverse;	
 	}

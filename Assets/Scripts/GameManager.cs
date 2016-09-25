@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	public ButtonEventHandler jumpButton;
 	public ToggleGroup movementToggleGroup;
 	public Slider turnSpeedSlider;
+	public Camera mainCamera;
 
 	private WaitForSeconds startWait;
 	private WaitForSeconds endWait;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine (GameLoop());
 	}
 
-	private IEnumerator GameLoop () {
+	private IEnumerator GameLoop () {		
 		panel.SetActive (true);
 		yield return StartCoroutine (RoundStarting());
 
@@ -85,6 +86,13 @@ public class GameManager : MonoBehaviour {
 		}
 
 		panel.SetActive (false);
+
+		if (Screen.width > Screen.height) {
+			mainCamera.fieldOfView = 75;
+		} else {
+			mainCamera.fieldOfView = 97;
+		}
+
 		if (useGameButtons) {
 			gameButtons.SetActive (true);
 		}
